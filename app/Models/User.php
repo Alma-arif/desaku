@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'id_jabatan',
+        'alamat',
+        'telepon',
+        'foto',
     ];
 
     /**
@@ -44,5 +49,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan')->withDefault();
+    }
+
+    public function berita()
+    {
+        return $this->hasMany(Berita::class, 'id_user');
     }
 }

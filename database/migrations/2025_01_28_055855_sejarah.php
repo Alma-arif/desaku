@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('berita', function (Blueprint $table) {
+        Schema::create('sejarah', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->text('isi');
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_kategory');
+            $table->string('id_user');
             $table->string('image');
             $table->boolean('status')->default(false);
             $table->timestamps();
-            $table->foreign('id_user')->references('id')->on('user')->onDelete('restrict');
-            $table->foreign('id_kategory')->references('id')->on('kategori_berita')->onDelete('restrict');
-
-
         });
     }
 
@@ -32,6 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('berita');
+        Schema::dropIfExists('sejarah');
+
     }
 };

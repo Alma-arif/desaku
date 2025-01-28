@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_berita', function (Blueprint $table) {
+        Schema::create('pengumuman', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('keterangan');
+            $table->text('isi');
+            $table->unsignedBigInteger('id_user');
+            $table->text('image');
+            $table->boolean('status')->default(false);
             $table->timestamps();
+            $table->foreign('id_user')->references('id')->on('user')->onDelete('restrict');
+
         });
     }
 
@@ -24,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_berita');
+        Schema::dropIfExists('pengumuman');
 
     }
 };

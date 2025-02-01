@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default('user');
             $table->unsignedBigInteger('id_jabatan');
-            $table->text('alamat');
-            $table->string('telepon');
-            $table->text('foto');
+            $table->text('alamat')->nullable();
+            $table->string('telepon')->nullable();
+            $table->text('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('id_jabatan')->references('id')->on('jabatan')->onDelete('set null');

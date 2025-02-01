@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_jabatan');
             $table->integer('tingkat_jabatan');
-            $table->string('keterangan_jabatan');
+            $table->text('keterangan_jabatan')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

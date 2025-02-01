@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('profile_desa', function (Blueprint $table) {
             $table->id();
             $table->string('nama_desa');
-            $table->string('alamat');
+            $table->text('alamat');
             $table->string('email');
             $table->string('telepon');
-            $table->string('logo');
+            $table->text('logo');
             $table->timestamps();
         });
     }

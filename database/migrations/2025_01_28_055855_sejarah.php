@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('sejarah', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('isi');
+            $table->text('isi')->nullable();
             $table->string('id_user');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('isi');
+            $table->text('isi')->nullable();
             $table->unsignedBigInteger('id_user');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
             $table->foreign('id_user')->references('id')->on('user')->onDelete('restrict');

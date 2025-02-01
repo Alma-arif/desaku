@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('berita', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('isi');
+            $table->text('isi')->nullable();
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_kategory');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
             $table->foreign('id_user')->references('id')->on('user')->onDelete('restrict');

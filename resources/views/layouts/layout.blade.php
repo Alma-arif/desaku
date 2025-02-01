@@ -27,6 +27,7 @@
 {{-- Rename section content to content_body --}}
 
 @section('content')
+    @include('layouts.alert')
     @yield('content_body')
 @stop
 
@@ -39,7 +40,7 @@
 
     <strong>
         <a href="{{ config('app.company_url', '#') }}">
-            {{ config('app.company_name', 'My company') }}
+            {{ config('app.company_name', 'DesaKu') }}
         </a>
     </strong>
 @stop
@@ -53,6 +54,21 @@
         // Add your common script logic here...
     });
 
+</script>
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
+
+    @if(session('error'))
+        toastr.error("{{ session('error') }}");
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
 </script>
 @endpush
 

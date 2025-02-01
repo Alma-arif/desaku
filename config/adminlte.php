@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Desa Ku',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Desa</b>Ku',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -300,37 +300,42 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type' => 'navbar-search',
-            'text' => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+        // [
+        //     'type' => 'navbar-search',
+        //     'text' => 'search',
+        //     'topnav_right' => true,
+        // ],
+        // [
+        //     'type' => 'fullscreen-widget',
+        //     'topnav_right' => true,
+        // ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
+        // [
+        //     'text' => 'blog',
+        //     'url' => 'admin/blog',
+        //     'can' => 'manage-blog',
+        // ],
+        // [
+        //     'text' => 'pages',
+        //     'url' => 'admin/pages',
+        //     'icon' => 'far fa-fw fa-file',
+        //     'label' => 4,
+        //     'label_color' => 'success',
+        // ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
+            'text' => 'user',
+            'url' => 'dashboard/user/',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'jabatan',
+            'url' => 'dashboard/jabatan/',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
@@ -376,22 +381,22 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
-        ],
+        // ['header' => 'labels'],
+        // [
+        //     'text' => 'important',
+        //     'icon_color' => 'red',
+        //     'url' => '#',
+        // ],
+        // [
+        //     'text' => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url' => '#',
+        // ],
+        // [
+        //     'text' => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url' => '#',
+        // ],
     ],
 
     /*

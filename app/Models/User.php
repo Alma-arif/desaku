@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -51,13 +53,26 @@ class User extends Authenticatable
         ];
     }
 
-    public function jabatan()
+    // public function jabatan()
+    // {
+    //     return $this->belongsTo(Jabatan::class, 'id_jabatan')->withDefault();
+    // }
+
+    // public function berita()
+    // {
+    //     return $this->hasMany(Berita::class, 'id_user');
+    // }
+
+    public function jabatan(): BelongsTo
     {
-        return $this->belongsTo(Jabatan::class, 'id_jabatan')->withDefault();
+        return $this->belongsTo(Jabatan::class, 'id_jabatan', 'id')->withDefault();
     }
 
-    public function berita()
+    // Relasi ke tabel Berita
+    public function berita(): HasMany
     {
-        return $this->hasMany(Berita::class, 'id_user');
+        return $this->hasMany(Berita::class, 'id_user', 'id');
     }
+
+
 }

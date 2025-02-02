@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\BeritaKategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BeritaDashboard extends Controller
 {
@@ -25,7 +27,7 @@ class BeritaDashboard extends Controller
                 $statusValue = 0;
             }
 
-            $data = Berita::with(['user', 'kategori_berita'])
+            $data = Berita::with(['user', 'berita_kategori'])
                 ->when(!empty($search), function ($query) use ($search) {
                     $query->where(function ($query) use ($search) {
                         $query->where('judul', 'like', "%{$search}%")
@@ -36,7 +38,7 @@ class BeritaDashboard extends Controller
                             ->orWhereHas('user', function ($query) use ($search) {
                                 $query->where('name', 'like', "%{$search}%");
                             })
-                            ->orWhereHas('kategori_berita', function ($query) use ($search) {
+                            ->orWhereHas('berita_kategori', function ($query) use ($search) {
                                 $query->where('judul', 'like', "%{$search}%");
                             });
                     });
@@ -47,13 +49,15 @@ class BeritaDashboard extends Controller
                 ->paginate($max_data)
                 ->appends(request()->query());
         } else {
-            $data = Berita::with(['user', 'kategori_berita'])
+            $data = Berita::with(['user', 'berita_kategori'])
             ->orderBy('created_at', 'desc') // Menampilkan berita terbaru terlebih dahulu
             ->paginate($max_data)
             ->appends(request()->query());
         }
 
-        return view('dashboard.berita.BeritaDashboard', compact('data'));
+        $kategori = BeritaKategori::all();
+
+        return view('dashboard.berita.BeritaDashboard', compact('data', 'kategori'));
     }
 
     /**
@@ -69,7 +73,30 @@ class BeritaDashboard extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'kategori_berita' => 'required|integer',
+            'status' => 'required',
+            'isi' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $imagePath = $request->file('image')->store('berita', 'public');
+
+        if ($request['status'] == 'aktif') {
+            $status = 1;
+        } else if ($request['status'] == 'no_aktif') {
+            $status = 0;
+        }
+
+        Berita::create([
+            'judul' => $request->judul,
+            'id_kategori' => $request->kategori_berita,
+            'status' => $status,
+            'isi' => $request->isi,
+            'image' => $imagePath,
+            'id_user' => Auth::id(),
+        ]);
     }
 
     /**

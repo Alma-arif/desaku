@@ -52,12 +52,15 @@
 
                     <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                     <td><img src="{{ $berita->image }}" alt="Image" class="img-thumbnail" width="50"></td>
-                    <td>{{ $berita->judul }}</td>
-                    <td> <a href="javascript:void(0);" class="link-toggle" onclick="toggleRow({{ $berita->id }})">
+                    {{-- <td>{{ $berita->judul }}</td> --}}
+                    <td> <a href="javascript:void(0);" class="link-toggle" onclick="toggleRow1({{ $berita->id }})">
+                        {{ Str::limit($berita->judul, 2, '...') }}
+                    </a></td>
+                    <td> <a href="javascript:void(1);" class="link-toggle" onclick="toggleRow2({{ $berita->id }})">
                         {{ Str::limit($berita->isi, 15, '...') }}
                     </a></td>
                     <td>{{ $berita->user->name }}</td>
-                    <td>{{ $berita->kategori_berita->judul }}</td>
+                    <td>{{ $berita->berita_kategori->judul }}</td>
                     <td> @if ($berita->status == 1)
                         <span class="badge bg-success">Aktif</span>
                     @else
@@ -79,7 +82,12 @@
 
                     </td>
                 </tr>
-                <tr id="row-detail-{{ $berita->id }}" style="display: none;">
+                <tr id="row-detail-judul-{{ $berita->id }}" style="display: none;">
+                    <td colspan="4">
+                        <strong>Judul:</strong> {{ $berita->judul }}
+                    </td>
+                </tr>
+                <tr id="row-detail-isi-{{ $berita->id }}" style="display: none;">
                     <td colspan="4">
                         <strong>Isi Berita:</strong> {{ $berita->isi }}
                     </td>
@@ -101,7 +109,7 @@
 </div>
 
  <!-- Tabel Pengguna -->
- {{-- @include('dashboard.berita.BeritaInputModelPopUp') --}}
+ @include('dashboard.berita.BeritaInputModelPopUp')
 
  <!-- Modal untuk Menambah dan Update Pengguna -->
  {{-- @include('dashboard.berita.BeritaUpdateModelPopUp') --}}
@@ -126,11 +134,16 @@
 {{-- Push extra scripts --}}
 
 @push('js')
+
+
 <script>
 
-
-    function toggleRow(id) {
-        const row = document.getElementById('row-detail-' + id);
+    function toggleRow1(id) {
+        const row = document.getElementById('row-detail-judul-' + id);
+        row.style.display = row.style.display === 'none' ? '' : 'none';
+    }
+    function toggleRow2(id) {
+        const row = document.getElementById('row-detail-isi-' + id);
         row.style.display = row.style.display === 'none' ? '' : 'none';
     }
 </script>

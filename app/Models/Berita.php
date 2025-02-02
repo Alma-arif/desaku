@@ -38,7 +38,7 @@ class Berita extends Model
     }
 
     // Relasi ke BeritaKategori
-    public function kategori_berita(): BelongsTo
+    public function berita_kategori(): BelongsTo
     {
         return $this->belongsTo(BeritaKategori::class, 'id_kategory', 'id');
     }

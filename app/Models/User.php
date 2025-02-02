@@ -74,5 +74,10 @@ class User extends Authenticatable
         return $this->hasMany(Berita::class, 'id_user', 'id');
     }
 
+    public function adminlte_profile_url()
+    {
+        return 'dashboard/profile';
+    }
+
 
 }

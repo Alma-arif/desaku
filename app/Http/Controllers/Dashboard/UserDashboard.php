@@ -17,8 +17,6 @@ class UserDashboard extends Controller
     {
         $max_data = 2;
         $search = request('search');
-        // $data =  User::with('jabatan')->paginate($max_data);
-        // return view('dashboard.UserDashboard', compact('data'));
 
         if ($search) {
             $data = User::with('jabatan')

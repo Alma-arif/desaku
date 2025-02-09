@@ -2,9 +2,9 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Berita')
+@section('subtitle', 'Users')
 @section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Berita')
+@section('content_header_subtitle', 'Users')
 
 {{-- Content body: main page content --}}
 
@@ -15,7 +15,7 @@
 
     </div>
     <div class="card-header">
-        <a href="javascript:void(0);" class=" float-left btn btn-sm btn-info " data-bs-toggle="modal" data-bs-target="#addUserModal">
+        <a href="javascript:void(0);" class=" float-left btn btn-sm btn-info " data-bs-toggle="modal" data-bs-target="#addModal">
             Tambah Pengguna Baru
         </a>
         <div class="card-tools">
@@ -56,13 +56,13 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->telepon }}</td>
-                    <td>{{ $user->jabatan->nama_jabatan }}</td>
+                    <td>{{ optional($user->jabatan)->nama_jabatan ?? '' }}</td>
                     <td>{{ $user->role }}</td>
                     <td> <a href="javascript:void(0);" class="link-toggle" onclick="toggleRow({{ $user->id }})">
                         {{ Str::limit($user->alamat, 15, '...') }}
                     </a></td>
                     <td>
-                        <a href="javascript:void(0);" class="btn  btn-primary" data-bs-toggle="modal" data-bs-target="#updateUserModal{{ $user->id }}">
+                        <a href="javascript:void(0);" class="btn  btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ $user->id }}">
                             Edit
                         </a>
                         <!-- Tombol Delete -->
@@ -113,12 +113,12 @@
     <!-- CSS untuk Link -->
 <style>
     .link-toggle {
-        color: inherit; /* Mengambil warna teks dari elemen induk */
-        text-decoration: none; /* Menghilangkan garis bawah */
-        cursor: pointer; /* Membuat cursor menjadi pointer saat hover */
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
     }
     .link-toggle:hover {
-        color: #007bff; /* Memberikan warna saat hover (ubah sesuai preferensi) */
+        color: #007bff;
     }
 </style>
 @endpush
@@ -136,14 +136,11 @@
 </script>
 <script>
     // Pastikan modal Bootstrap diinisialisasi dengan benar
-    // const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-    const updateUserModals = document.querySelectorAll('[id^="updateUserModal"]');
+    const updateModals = document.querySelectorAll('[id^="updateModal"]');
 
-    // Tampilkan modal jika tombol ditekan
-    // addUserModal.show();
 
     // Untuk modal update
-    updateUserModals.forEach((modal) => {
+    updateModals.forEach((modal) => {
         const modalInstance = new bootstrap.Modal(modal);
         const editButtons = document.querySelectorAll(`[data-bs-target="#${modal.id}"]`);
 
@@ -156,12 +153,12 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-        const addUserButton = document.querySelector('[data-bs-toggle="modal"][data-bs-target="#addUserModal"]');
+        const addModal = new bootstrap.Modal(document.getElementById('addModal'));
+        const addUserButton = document.querySelector('[data-bs-toggle="modal"][data-bs-target="#addModal"]');
 
         // Pastikan modal muncul ketika tombol ditekan
         addUserButton.addEventListener('click', function() {
-            addUserModal.show();
+            addModal.show();
         });
     });
 </script>

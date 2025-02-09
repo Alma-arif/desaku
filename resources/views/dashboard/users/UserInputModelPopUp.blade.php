@@ -1,9 +1,9 @@
 <!-- Modal untuk Menambah Pengguna Baru -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Tambah Pengguna Baru</h5>
+                <h5 class="modal-title" id="addModalLabel">Tambah Pengguna Baru</h5>
                 <button type="button" class="btn btn-sm btn-close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">

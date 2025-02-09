@@ -340,8 +340,37 @@ return [
         ],
         [
             'text' => 'Berita',
-            'url' => 'dashboard/berita/',
             'icon' => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'Berita',
+                    'icon' => 'fas fa-fw fa-user',
+                    'url' => 'dashboard/berita/',
+                ],
+                [
+
+                    'text' => 'Kategori',
+                    'icon' => 'fas fa-fw fa-user',
+                    'url' => 'dashboard/berita/kategori/',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Dokumen',
+            'icon' => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => 'File',
+                    'icon' => 'fas fa-fw fa-user',
+                    'url' => 'dashboard/file/',
+                ],
+                [
+
+                    'text' => 'Arsip',
+                    'icon' => 'fas fa-fw fa-user',
+                    'url' => 'dashboard/arsip/',
+                ],
+            ],
         ],
         [
             'text' => 'change_password',

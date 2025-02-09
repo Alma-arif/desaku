@@ -1,11 +1,11 @@
 <!-- Modal untuk Update Pengguna -->
 @foreach ($data as $user)
-    <div class="modal fade" id="updateUserModal{{ $user->id }}" tabindex="-1"
-        aria-labelledby="updateUserModalLabel{{ $user->id }}" aria-hidden="true">
+    <div class="modal fade" id="updateModal{{ $user->id }}" tabindex="-1"
+        aria-labelledby="updateModalLabel{{ $user->id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateUserModalLabel{{ $user->id }}">Update Pengguna</h5>
+                    <h5 class="modal-title" id="updateModalLabel{{ $user->id }}">Update Pengguna</h5>
                     <button type="button" class="btn btn-sm btn-close" data-dismiss="modal"
                         aria-label="Close">X</button>
                 </div>

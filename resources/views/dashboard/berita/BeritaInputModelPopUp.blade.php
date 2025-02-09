@@ -1,9 +1,9 @@
 <!-- Modal untuk Menambah Pengguna Baru -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Tambah Berita Baru</h5>
+                <h5 class="modal-title" id="addModalLabel">Tambah Berita Baru</h5>
                 <button type="button" class="btn btn-sm btn-close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
@@ -28,8 +28,8 @@
                     <div class="form-group">
                         <label for="status">Status Berita</label>
                         <select name="status" class="form-control" required>
-                            <option value="1">Aktif</option>
-                            <option value="0">Non Aktif</option>
+                            <option value="aktif">Aktif</option>
+                            <option value="non aktif">Non Aktif</option>
                         </select>
                     </div>
 
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="image">Gambar Berita</label>
+                        <label for="image">Dokumen</label>
                         <input type="file" name="image" class="form-control" onchange="previewImage(event)" required>
                         <br>
                         <img id="preview" src="#" alt="Preview Gambar" style="max-width: 300px; display: none;" />

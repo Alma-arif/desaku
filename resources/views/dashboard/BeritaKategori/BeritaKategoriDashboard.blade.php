@@ -2,26 +2,27 @@
 
 {{-- Customize layout sections --}}
 
-@section('subtitle', 'Berita')
+@section('subtitle', 'Kategori')
 @section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Berita')
+@section('content_header_subtitle', 'Kategori')
 
 {{-- Content body: main page content --}}
 
 @section('content_body')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Data Table</h3>
+        <h3 class="card-title">Kategori</h3>
 
     </div>
     <div class="card-header">
         <a href="javascript:void(0);" class=" float-left btn btn-sm btn-info " data-bs-toggle="modal" data-bs-target="#addModal">
-            Tambah Berita Baru
+            Tambah Kategori Baru
         </a>
         <div class="card-tools">
 
             <!-- Form Pencarian -->
             <form action="{{ url()->current() }}" method="GET" class="input-group input-group-sm" style="width: 250px;">
+                {{-- @csrf --}}
                 <input type="text" name="search" class="form-control float-right" placeholder="Search..." value="{{ request('search') }}">
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
@@ -37,60 +38,36 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Image</th>
-                    <th>Judul</th>
-                    <th>Isi</th>
-                    <th>Pengarang</th>
-                    <th>Kategori</th>
-                    <th>Status</th>
+                    <th>Nama</th>
+                    <th>Keterangan</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($data as $berita)
+                @forelse ($data as $kategori)
                 <tr>
 
                     <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                    <td><img src="{{ asset('storage/' . $berita->image) }}" alt="Image" class="img-thumbnail" width="50"></td>
-                    {{-- <td>{{ $berita->judul }}</td> --}}
-                    <td> <a href="javascript:void(0);" class="link-toggle" onclick="toggleRow1({{ $berita->id }})">
-                        {{ Str::limit($berita->judul, 2, '...') }}
-                    </a></td>
-                    <td> <a href="javascript:void(1);" class="link-toggle" onclick="toggleRow2({{ $berita->id }})">
-                        {{ Str::limit($berita->isi, 15, '...') }}
-                    </a></td>
-                    <td>{{ $berita->user->name }}</td>
-
-                    <td>{{ optional($berita->berita_kategori)->judul ?? '' }}</td>
-                    <td> @if ($berita->status == 1)
-                        <span class="badge bg-success">Aktif</span>
-                    @else
-                        <span class="badge bg-danger">Non Aktif</span>
-                    @endif</td>
+                    <td>{{ $kategori->judul }}</td>
+                    <td> <a href="javascript:void(0);" class="link-toggle" onclick="toggleRow({{ $kategori->id }})">
+                        {{ Str::limit($kategori->keterangan, 20, '...') }}
+                    </a>
                     <td>
-                        <a href="javascript:void(0);" class="btn  btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ $berita->id }}">
+                        <a href="javascript:void(0);" class="btn  btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ $kategori->id }}">
                             Edit
                         </a>
-
                         <div class="btn-group">
-                            <form action="{{ route('BeritaDashboard.delete', ['id' => $berita->id]) }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                            <form action="{{ route('BeritaKategoriDashboard.delete', ['id' => $kategori->id]) }}" method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                 @csrf
-                                @method('delete')
+                                @method('DELETE')
                             <button class="btn btn-danger delete-btn">Delete</button>
                         </form>
-
                         </div>
-
                     </td>
                 </tr>
-                <tr id="row-detail-judul-{{ $berita->id }}" style="display: none;">
+                <tr id="row-detail-{{ $kategori->id }}" style="display: none;">
                     <td colspan="4">
-                        <strong>Judul:</strong> {{ $berita->judul }}
-                    </td>
-                </tr>
-                <tr id="row-detail-isi-{{ $berita->id }}" style="display: none;">
-                    <td colspan="4">
-                        <strong>Isi Berita:</strong> {{ $berita->isi }}
+                        <strong>Keterangan Lengkap:</strong> {{ $kategori->keterangan }}
                     </td>
                 </tr>
                 @empty
@@ -110,10 +87,10 @@
 </div>
 
  <!-- Tabel Pengguna -->
- @include('dashboard.berita.BeritaInputModelPopUp')
+ @include('dashboard.BeritaKategori.BeritaKategoriInputModelPopUp')
 
  <!-- Modal untuk Menambah dan Update Pengguna -->
- @include('dashboard.berita.BeritaUpdateModelPopUp')
+ @include('dashboard.BeritaKategori.BeritaKategoriUpdateModelPopUp')
 
 
 @stop

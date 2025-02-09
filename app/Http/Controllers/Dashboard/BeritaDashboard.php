@@ -7,6 +7,7 @@ use App\Models\Berita;
 use App\Models\BeritaKategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaDashboard extends Controller
 {
@@ -56,7 +57,7 @@ class BeritaDashboard extends Controller
         }
 
         $kategori = BeritaKategori::all();
-
+// dd($data);
         return view('dashboard.berita.BeritaDashboard', compact('data', 'kategori'));
     }
 
@@ -91,12 +92,14 @@ class BeritaDashboard extends Controller
 
         Berita::create([
             'judul' => $request->judul,
-            'id_kategori' => $request->kategori_berita,
-            'status' => $status,
             'isi' => $request->isi,
-            'image' => $imagePath,
             'id_user' => Auth::id(),
+            'id_kategory' => $request->kategori_berita,
+            'status' => $status,
+            'image' => $imagePath,
         ]);
+        return redirect()->route('BeritaDashboard')->with('success', 'Berita berhasil dibuat!');
+
     }
 
     /**
@@ -120,7 +123,36 @@ class BeritaDashboard extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'id_kategori' => 'required|integer',
+            'status' => 'required|in:0,1',
+            'isi' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $berita = Berita::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($berita->image) {
+                Storage::disk('public')->delete($berita->image);
+            }
+
+            $imagePath = $request->file('image')->store('berita', 'public');
+        } else {
+            $imagePath = $berita->image;
+        }
+
+        $berita->judul = $request->judul;
+        $berita->id_kategory = $request->id_kategori;
+        $berita->status = $request->status;
+        $berita->isi = $request->isi;
+        $berita->image = $imagePath;
+
+
+        $berita->save();
+
+        return redirect()->route('BeritaDashboard')->with('success', 'Berita berhasil diperbarui!');
     }
 
     /**
@@ -128,6 +160,16 @@ class BeritaDashboard extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $berita = Berita::findOrFail($id);
+
+        // Hapus gambar jika ada
+        if ($berita->image) {
+            Storage::disk('public')->delete($berita->image);
+        }
+
+        // Hapus data dari database
+        $berita->delete();
+
+        return redirect()->back()->with('success', 'Berita berhasil dihapus!');
     }
 }

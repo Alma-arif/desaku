@@ -128,7 +128,7 @@ class JabatanDashboard extends Controller
      */
     public function destroy(string $id)
     {
-        Jabatan::where('id', $id)->delete();
+        Jabatan::findOrFail($id)->delete();
         return redirect()->route('JabatanDashboard')->with('success', 'Data berhasil dihapus!');
     }
 }

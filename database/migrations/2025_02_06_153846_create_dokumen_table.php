@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('berita_kategori', function (Blueprint $table) {
+        Schema::create('dokumen', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('keterangan')->nullable();
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->unsignedBigInteger('user_id');
+            $table->enum('status', ['Aktif', 'Diarsipkan'])->default('Aktif');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -24,7 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('berita_kategori');
-
+        Schema::dropIfExists('dokumen');
     }
 };

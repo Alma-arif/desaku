@@ -5,7 +5,9 @@ use App\Http\Controllers\Dashboard\BeritaKategoriDashboard;
 use App\Http\Controllers\Dashboard\DokumenController;
 use App\Http\Controllers\Dashboard\UserDashboard;
 use App\Http\Controllers\Dashboard\JabatanDashboard;
+use App\Http\Middleware\ProtectFiles;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,6 +17,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/dokumen/{filename}', function($filename){
+    if (!Auth::check()) {
+        return redirect('/login');
+    }
+
+    $path = storage_path('app/private/dokumen/' . $filename);
+
+    if (!file_exists($path)) {
+        abort(404, 'File tidak ditemukan');
+    }
+
+    return Response::file($path);
+})->middleware(ProtectFiles::class);
+
 
 Route::middleware(['auth'])->group(function () {
         Route::prefix('/dashboard')->group(function () {

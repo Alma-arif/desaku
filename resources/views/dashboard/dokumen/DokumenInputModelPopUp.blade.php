@@ -3,11 +3,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Jabatan Baru</h5>
+                <h5 class="modal-title" id="addModalLabel">Tambah Dokumen Baru</h5>
                 <button type="button" class="btn btn-sm btn-close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('JabatanDashboard.post') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('DokumenDashboard.post') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="judul" class="form-label">Nama</label>

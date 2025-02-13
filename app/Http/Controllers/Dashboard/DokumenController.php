@@ -45,7 +45,7 @@ class DokumenController extends Controller
             'file' => 'required|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        $filePath = $request->file('file')->store('dokumen', 'public');
+        $filePath = $request->file('file')->store('dokumen', 'local');
         $fileName = $request->file('file')->getClientOriginalName();
 
         Dokumen::create([
@@ -80,7 +80,7 @@ class DokumenController extends Controller
     public function destroy($id)
     {
         $dokumen = Dokumen::findOrFail($id);
-        Storage::disk('public')->delete($dokumen->file_path);
+        Storage::disk('local')->delete($dokumen->file_path);
         $dokumen->delete();
 
         return redirect()->back()->with('success', 'Dokumen berhasil dihapus.');

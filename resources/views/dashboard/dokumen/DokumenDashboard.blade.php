@@ -42,6 +42,7 @@
                     <tr>
                         <th>#</th>
                         <th>Judul</th>
+                        <th>File Name</th>
                         <th>Uploader</th>
                         <th>Actions</th>
                     </tr>
@@ -54,7 +55,7 @@
                             <td>{{ $dokumen->file_name }}</td>
                             <td>{{ $dokumen->user->name }}</td>
                             <td>
-                                <a href="{{ asset('storage/' . $dokumen->file_path) }}" target="_blank" class="btn btn-info">Lihat</a>
+                                <a href="{{ url('/dokumen/'. basename($dokumen->file_path)) }}" target="_blank" class="btn btn-info">Lihat</a>
                                 <a href="{{ route('DokumenDashboard.archive', ['id' => $dokumen->id]) }}" class="btn btn-warning">Arsipkan</a>
                                 <form action="{{ route('DokumenDashboard.delete',  ['id' => $dokumen->id]) }}" method="POST" class="d-inline">
                                     @csrf @method('DELETE')
@@ -75,7 +76,7 @@
     </div>
 
     <!-- Tabel Pengguna -->
-    {{-- @include('dashboard.dokumen.DokumenInputModelPopUp') --}}
+    @include('dashboard.dokumen.DokumenInputModelPopUp')
 
     <!-- Modal untuk Menambah dan Update Pengguna -->
     {{-- @include('dashboard.jabatan.JabatanUpdateModelPopUp') --}}
